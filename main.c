@@ -23,8 +23,7 @@ int main(void){
         /* INIT TXT */
             f = fopen(file_name, "w");
             verif_ferror(f);
-            fputc(TAB, f);
-            printf("\nEnter the text: ");
+            init_text_parag(f);
         /**/
 
         /* WRITE AND FORMAT */
@@ -32,7 +31,7 @@ int main(void){
                 write_file(&ch, &countc, f);
                 format_line(&countc, f);
                 format_parag(&ch, &countd, &countc, f);
-            }while(ch != ENTER);
+            }while(!end_write(ch));
 
             fclose(f);
         /**/
@@ -41,6 +40,7 @@ int main(void){
             fc = fopen("scopy.txt", "w");
             f = fopen(file_name, "r");
             verif_ferror(fc);
+            verif_ferror(f);
 
             do{
                 fgets(string, STR_LEN, f);
@@ -66,7 +66,9 @@ int main(void){
 /* FUNCTIONS */
 
 void print_intro(){
-    printf("\nCopy, write, format and copy\n");
+    printf("\n****************************\n");
+    printf("Copy, write, format and copy");
+    printf("\n****************************\n");
 }
 
 void print_end(){
@@ -78,6 +80,22 @@ void print_end(){
 void enter_file_name(char *file_name){
     printf("\nEnter the file name: ");
     fgets(file_name, STR_LEN, stdin);
+}
+
+/* END -> PRESS ENTER */
+int end_write(char ch){
+    if(ch == ENTER){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+/* TAB + MSG(ENTER THE TEXT) */
+void init_text_parag(FILE *f){
+    fputc(TAB, f);
+    printf("\nEnter the text: ");
 }
 
 /* CHECK 4 POSITION OF ARRAY -> '.TXT' -> RETURN 1 */
