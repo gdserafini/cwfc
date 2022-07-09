@@ -94,16 +94,15 @@ int is_txt(char *file_name){
 
 /* CHECK ANY ERROR AT FILE */
 void verif_ferror(FILE *f){
-    if(f == NULL || ferror(f)){
-        if(f == NULL){
-            printf("\nError - empty file.\n");
-            exit(1);
-        }
-        else if(ferror(f)){
-            printf("\nError - ");
-            printf("\n");
-            exit(1);
-        }
+    if(f == NULL){
+        printf("\nError - empty file.\n");
+        exit(1);
+    }
+    else if(ferror(f)){
+        printf("\nError - ");
+        printf("\n");
+        exit(1);
+        
     }
 }
 
