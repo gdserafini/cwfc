@@ -7,7 +7,7 @@
 #include "head.h"
 
 int main(void){
-    char file_name[STR_LEN], ch, string[STR_LEN];
+    char *file_name, ch, string[STR_LEN];
     int countc = 4, countd = 0;
     FILE *fc;
     FILE *f;
@@ -16,8 +16,12 @@ int main(void){
     print_intro();
 
     do{
+    /* ALLOC/REALLOC, INIT/ENTER FILE NAME */
+        file_name = malloc(sizeof(char) * STR_LEN);
         init_file_name(file_name);
         enter_file_name(file_name);
+        file_name = realloc(file_name, strlen(file_name));
+    /**/
 
         if(is_txt(file_name)){ //WITH .TXT
         /* INIT TXT */
