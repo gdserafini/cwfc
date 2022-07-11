@@ -13,9 +13,3 @@ void init_file_name(char *file_name);
 void init_text_parag(FILE *f);
 
 void verif_ferror(FILE *f);
-
-void write_file(char *ch, int *countc, FILE *f);
-int end_write(char ch);
-
-void format_line(int *countc, FILE *f);
-void format_parag(char *ch, int *countd, int *countc, FILE *f);
