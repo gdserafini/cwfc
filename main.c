@@ -7,8 +7,8 @@
 #include "head.h"
 
 int main(void){
-    char *file_name, ch, string[STR_LEN];
-    int countc = 4, countd = 0;
+    char *file_name, c, string[STR_LEN];
+    int cc = 4, cd = 0;
     FILE *fc;
     FILE *f;
     
@@ -32,10 +32,21 @@ int main(void){
 
         /* WRITE AND FORMAT */
             do{
-                write_file(&ch, &countc, f);
-                format_line(&countc, f);
-                format_parag(&ch, &countd, &countc, f);
-            }while(!end_write(ch));
+                /* C = CHAR, CC = COUNT CHAR, CD = COUNT DOT */
+                c = fgetc(stdin); //WRITE
+                if(c != ENTER){
+                    cc++; fputc(c, f);
+                }
+                if(cc == 99){ //FORMAT LINES
+                    fputc(ENTER, f); cc = 0; 
+                }
+                if(c == DOT){ //FORMAT PARAG.(DOT)
+                    cd++;
+                } 
+                if(cd == 5){
+                    fputc(ENTER, f); fputc(ENTER, f); fputc(TAB, f); cd = 0; cc = 4;
+                }
+            }while(c != ENTER);
 
             fclose(f);
         /**/
@@ -86,16 +97,6 @@ void enter_file_name(char *file_name){
     fgets(file_name, STR_LEN, stdin);
 }
 
-/* END -> PRESS ENTER */
-int end_write(char ch){
-    if(ch == ENTER){
-        return 1;
-    }
-    else{
-        return 0;
-    }
-}
-
 /* TAB + MSG(ENTER THE TEXT) */
 void init_text_parag(FILE *f){
     fputc(TAB, f);
@@ -125,39 +126,6 @@ void verif_ferror(FILE *f){
         printf("\n");
         exit(1);
         
-    }
-}
-
-/* WRITE IN FILE_NAME */
-void write_file(char *ch, int *countc, FILE *f){
-    *ch = fgetc(stdin);
-
-    if(*ch != ENTER){
-        (*countc)++;
-        fputc(*ch, f);
-    }
-}
-
-/* LINE SIZE = 100 CH */
-void format_line(int *countc, FILE *f){
-    if(*countc == STR_LEN-1){
-        fputc(ENTER, f);
-        *countc = 0;
-    }
-}
-
-/* 5 DOTS -> FORMAT (NEW PARAGRAPH) */
-void format_parag(char *ch, int *countd, int *countc, FILE *f){
-    if(*ch == DOT){
-        (*countd)++;
-
-        if(*countd == MAXD){
-            fputc(ENTER, f);
-            fputc(ENTER, f);
-            fputc(TAB, f);
-            *countd = 0;
-            *countc = 4;
-        }
     }
 }
 
