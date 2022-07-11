@@ -42,7 +42,7 @@ int is_txt(char *file_name){
 }
 
 /* CHECK ANY ERROR AT FILE */
-void verif_ferror(FILE *f){
+void check_ferror(FILE *f){
     if(f == NULL){
         printf("\nError - empty file.\n");
         exit(1);

@@ -25,7 +25,7 @@ int main(void){
         if(is_txt(file_name)){ //WITH .TXT
         /* INIT TXT */
             f = fopen(file_name, "w");
-            verif_ferror(f);
+            check_ferror(f);
             init_text_parag(f);
         /**/
 
@@ -41,22 +41,25 @@ int main(void){
                 } 
                 if(cd == 5){ fputc(ENTER, f); fputc(ENTER, f); fputc(TAB, f); cd = 0; cc = 4;
                 }
+                if(f == NULL){ printf("\nError - empty file.\n"); exit(1); //CHECK ERROR WHILE COPY
+                }else if(ferror(f)){ printf("\nError - "); printf("\n"); exit(1);
+                }
             }while(c != ENTER);
 
             fclose(f);
         /**/
         
         /* COPY */
-            fc = fopen("scopy.txt", "w");
-            f = fopen(file_name, "r");
-            verif_ferror(fc);
-            verif_ferror(f);
+            fc = fopen("scopy.txt", "w");   //COPY
+            f = fopen(file_name, "r");  //WRITE
+            check_ferror(fc);
+            check_ferror(f);
 
             do{
-                fgets(string, STR_LEN, f);
-                fputs(string, fc);
-                verif_ferror(fc);
-                verif_ferror(f);
+                fgets(string, STR_LEN, f);  //GET
+                fputs(string, fc);  //PUT
+                check_ferror(fc);
+                check_ferror(f);
             }while(!feof(f));
 
             fclose(fc);

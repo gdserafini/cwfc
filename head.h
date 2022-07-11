@@ -12,4 +12,4 @@ int is_txt(char *file_name);
 void init_file_name(char *file_name);
 void init_text_parag(FILE *f);
 
-void verif_ferror(FILE *f);
+void check_ferror(FILE *f);
