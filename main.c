@@ -1,4 +1,4 @@
-/* COPY, WRITE, FORMAT, COPY */
+/* CREATE, WRITE, FORMAT, COPY */
 
 #include <stdio.h>
 #include <stdlib.h>
